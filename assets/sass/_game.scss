@@ -1,0 +1,104 @@
+:root {
+  --optSize: 180px;
+}
+
+main {
+  div {
+    label {
+      @include flex(block, column, center, center, null);
+      width: var(--optSize);
+      height: var(--optSize);
+      @include border-radius(var(--optSize));
+      overflow: hidden;
+      box-shadow: 0 4px 32px 0 rgba(gray, 0.2);
+      @include transition(400ms, curve());
+      background-color: $light--4;
+      input[type='radio'] {
+        display: none;
+      }
+      img {
+        width: var(--optSize);
+        height: auto;
+        pointer-events: none;
+      }
+    }
+    &:nth-child(1) {
+      label {
+        img {
+          @include transform(rotateY(180deg));
+        }
+        &.active {
+          z-index: 1;
+          &:nth-child(1) {
+            @include transform(translate(150%, 165%) scale(1.5));
+          }
+          &:nth-child(2) {
+            @include transform(translate(150%, 0) scale(1.5));
+          }
+          &:nth-child(3) {
+            @include transform(translate(150%, -165%) scale(1.5));
+          }
+        }
+      }
+    }
+    &:nth-child(2) {
+      label {
+        &.active {
+          z-index: 1;
+          &:nth-child(1) {
+            @include transform(translate(-150%, 165%) scale(1.5));
+          }
+          &:nth-child(2) {
+            @include transform(translate(-150%, 0) scale(1.5));
+          }
+          &:nth-child(3) {
+            @include transform(translate(-150%, -165%) scale(1.5));
+          }
+        }
+      }
+    }
+  }
+}
+
+.message {
+  position: fixed;
+  top: calc(50% - 150px);
+  left: calc(50% - 150px);
+  z-index: 999;
+  @include flex(block, column, center, center, null);
+  width: 300px;
+  height: 300px;
+  @include border-radius(4px);
+  background-color: $accent--4;
+  color: $light--3;
+  @include vendor(box-shadow, 0 8px 32px 0 rgba(darken($accent--4, 30%), 0.4));
+  @include vendor(animation, message-fade-in 580ms curve() 1000ms forwards);
+  opacity: 0;
+  h1 {
+    margin: 0;
+    font-family: Product Sans, sans-serif;
+  }
+  div {
+    button {
+      cursor: pointer;
+      @include vendor(appearance, none);
+      width: 56px;
+      height: 56px;
+      border: none;
+      margin: 16px;
+      background-color: transparent;
+      color: $light--4;
+    }
+  }
+}
+
+@keyframes message-fade-in {
+  from {
+    opacity: 0;
+    @include transform(scale(0.6) translateY(16px));
+  }
+  to {
+    opacity: 1;
+    @include transform(scale(1) translateY(0));
+  }
+}

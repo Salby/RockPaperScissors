@@ -1,0 +1,92 @@
+@import "helpers";
+$light--1: #E0E0E0;
+$light--2: #F5F5F5;
+$light--3: #FAFAFA;
+$light--4: #FFFFFF;
+$accent--1: #82B1FF;
+$accent--2: #448AFF;
+$accent--3: #2979FF;
+$accent--4: #2962FF;
+
+//// Layout:
+body {
+  display: grid;
+  grid-template-rows: 64px auto;
+  min-height: 100vh;
+}
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 500px;
+  width: 1200px;
+  height: 100%;
+  margin: 0 auto !important;
+  div {
+    @include flex(block, column, space-around, center, null);
+  }
+}
+
+//// Header
+header {
+  height: 100%;
+  background-color: $accent--3;
+  color: $light--3;
+  @include vendor(box-shadow, 0 4px 16px 0 rgba(darken($accent--3, 30%), 0.4));
+  ul {
+    @include flex(block, row, start, center, null);
+    width: 1200px;
+    height: inherit;
+    margin: auto;
+    li {
+      margin-right: 16px;
+      button {
+        cursor: pointer;
+        @include vendor(appearance, none);
+        @include flex(block, row, center, center, null);
+        background-color: transparent;
+        color: $light--4;
+        border: none;
+      }
+      h1 {
+        margin: 0;
+        font-family: Product Sans, sans-serif;
+      }
+    }
+  }
+}
+
+@import "game";
+
+//// General styles:
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: auto;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+*::selection {
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  background-color: $light--3;
+}

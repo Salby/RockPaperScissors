@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RPS</title>
+    <link rel="stylesheet" href="assets/css/master.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <ul>
+        <li><button type="button" data-toggle="scoreboard"><i class="material-icons">menu</i></button></li>
+        <li><h1>Rock Paper Scissors</h1></li>
+    </ul>
+</header>
+<main>
+    <div id="user">
+        <label>
+            <input type="radio" name="selection" value="1" />
+            <img src="assets/img/rock.jpg" alt="rock" />
+        </label>
+        <label>
+            <input type="radio" name="selection" value="3" />
+            <img src="assets/img/paper.jpg" alt="paper" />
+        </label>
+        <label>
+            <input type="radio" name="selection" value="2" />
+            <img src="assets/img/scissors.jpg" alt="scissors" />
+        </label>
+    </div>
+    <div id="cpu">
+        <label>
+            <input type="radio" value="1" disabled />
+            <img src="assets/img/rock.jpg" alt="rock" />
+        </label>
+        <label>
+            <input type="radio" value="3" disabled />
+            <img src="assets/img/paper.jpg" alt="paper" />
+        </label>
+        <label>
+            <input type="radio" value="2" disabled />
+            <img src="assets/img/scissors.jpg" alt="scissors" />
+        </label>
+    </div>
+</main>
+
+<script src="assets/js/game.js"></script>
+
+</body>
+</html>
