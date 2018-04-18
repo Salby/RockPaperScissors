@@ -1,8 +1,8 @@
 :root {
   --optSize: 180px;
 }
-
 main {
+  position: relative;
   div {
     label {
       @include flex(block, column, center, center, null);
@@ -24,6 +24,7 @@ main {
     }
     &:nth-child(1) {
       label {
+        cursor: pointer;
         img {
           @include transform(rotateY(180deg));
         }
@@ -43,6 +44,7 @@ main {
     }
     &:nth-child(2) {
       label {
+        cursor: not-allowed;
         &.active {
           z-index: 1;
           &:nth-child(1) {
@@ -61,33 +63,68 @@ main {
 }
 
 .message {
-  position: fixed;
-  top: calc(50% - 150px);
-  left: calc(50% - 150px);
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 999;
   @include flex(block, column, center, center, null);
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   @include border-radius(4px);
-  background-color: $accent--4;
-  color: $light--3;
-  @include vendor(box-shadow, 0 8px 32px 0 rgba(darken($accent--4, 30%), 0.4));
-  @include vendor(animation, message-fade-in 580ms curve() 1000ms forwards);
+  background-color: rgba($light--4, 0.74);
+  color: $accent--4;
+  @include vendor(animation, message-fade-in 580ms curve() 700ms forwards);
   opacity: 0;
   h1 {
     margin: 0;
     font-family: Product Sans, sans-serif;
   }
-  div {
-    button {
-      cursor: pointer;
-      @include vendor(appearance, none);
-      width: 56px;
-      height: 56px;
-      border: none;
-      margin: 16px;
-      background-color: transparent;
-      color: $light--4;
+  button {
+    cursor: pointer;
+    @include vendor(appearance, none);
+    width: 56px;
+    height: 56px;
+    border: none;
+    margin: 16px;
+    background-color: transparent;
+    color: $accent--4;
+    i {
+      @include transition(280ms, curve());
+    }
+    &:hover {
+      i {
+        @include transform(rotate(360deg) scale(2));
+      }
+    }
+  }
+}
+
+.rapper {
+  background-color: $light--4;
+  @include vendor(box-shadow, 2px 0 8px 0 rgba(darken($light--4, 30%), 0.4));
+}
+#scoreboard {
+  width: 100%;
+  text-align: center;
+  border-spacing: 16px;
+  thead {
+    tr {
+      height: 100px;
+      color: rgba(black, 0.74);
+      font-family: Product Sans, sans-serif;
+      font-size: 18px;
+    }
+  }
+  tbody {
+    tr:first-child {
+      color: rgba(black, 0.74);
+      font-family: Product Sans, sans-serif;
+      font-size: 92px;
+      td {
+      }
+    }
+    tr {
+      color: rgba(black, 0.54);
     }
   }
 }
@@ -95,10 +132,8 @@ main {
 @keyframes message-fade-in {
   from {
     opacity: 0;
-    @include transform(scale(0.6) translateY(16px));
   }
   to {
     opacity: 1;
-    @include transform(scale(1) translateY(0));
   }
 }

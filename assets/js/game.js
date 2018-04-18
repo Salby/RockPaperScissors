@@ -1,6 +1,11 @@
 //Find Labels in the User area
 //Playing variable to turn "the game" off
 var playing = true;
+const SCOREBOARD = document.getElementById('scoreboard');
+var scoreboardDataPlayer;
+var scoreboardDataCpu;
+var playerScore = 0;
+var cpuScore = 0;
 
 //User Variables
 var user = document.getElementById('user');
@@ -20,8 +25,8 @@ for (var i=0; i < options.length; i++)  {
         selected = e.target;
         //console.log(e.target);
         if (playing === true) {
-            //Run CPU Random function and add result from.... result
-            resultCalc(toggleClass(selected), cpuPlayer(cpuOptions));
+            //
+            resultCalc(player(selected), cpuPlayer(cpuOptions));
             //Turn off playing
             playing = false;
         }
@@ -30,7 +35,7 @@ for (var i=0; i < options.length; i++)  {
 
 
 //Toggle class on selected DIMS
-function toggleClass(selected) {
+function player(selected) {
     if (!selected.classList.contains('active')) {
         selected.classList.add('active');
         var selectedInput = selected.querySelector('input');
@@ -53,28 +58,65 @@ function resultCalc(userPick, cpuPick) {
 
     //Lose Scenario
     if (cpuPick % 3 + 1 == userPick) {
-        console.log('CPU Vandt');
         var result = "CPU Won";
     }
     //Win Scenario
     else if (userPick % 3 + 1 == cpuPick) {
-        console.log('Du vandt');
         var result = "You Won";
     }
     //Draw Scenario
     else {
-        console.log('Uafgjort');
         var result = "Round Draw"
     }
-
+    scoreboard(result);
     message(result);
+    scoreboardBuild();
 
 }
 
 function message(msg) {
-    var body = document.getElementsByTagName('body');
+    var main = document.getElementsByTagName('main');
     var messageContainer = document.createElement('div');
     messageContainer.classList.add('message');
-    messageContainer.innerHTML = '<h1>' + msg + '</h1><div><button type="button" onclick="newGame()"><i class="material-icons">refresh</i></button></div>';
-    body[0].appendChild(messageContainer);
+    messageContainer.innerHTML = '<h1>' + msg + '</h1><button type="button" onclick="newGame(this.parentNode)"><i class="material-icons">refresh</i></button>';
+    main[0].appendChild(messageContainer);
+}
+
+function newGame(dialog) {
+    playing = true;
+    var activeElements = document.querySelectorAll(".active");
+    for (var i = 0; i < activeElements.length; i++) {
+        activeElements[i].classList.remove("active");
+    }
+    dialog.remove();
+}
+
+var scoreboard = function(result) {
+    if (result == "You Won") {
+        scoreboardDataPlayer = "Win";
+        scoreboardDataCpu = "";
+        playerScore ++;
+    }
+    else if (result == "CPU Won") {
+        scoreboardDataPlayer = "";
+        scoreboardDataCpu = "Win";
+        cpuScore ++;
+    }
+    else {
+        scoreboardDataPlayer = "Draw";
+        scoreboardDataCpu = "Draw";
+    }
+
+};
+var scoreboardBuild = function() {
+    var table = SCOREBOARD.querySelector("tbody");
+    var resultRow = table.querySelector('tr');
+    var row = document.createElement("tr");
+    row.innerHTML = "";
+    row.innerHTML = "<td>" + scoreboardDataPlayer + "</td><td>" + scoreboardDataCpu + "</td>";
+    setTimeout(function() {
+        resultRow.childNodes[1].innerHTML = playerScore;
+        resultRow.childNodes[3].innerHTML = cpuScore;
+        table.appendChild(row);
+    }, 821);
 }
